@@ -1,0 +1,15 @@
+# Geometry for run 5
+/jpetmc/detector/loadTargetForRun 0
+
+# Loading standard scintillators (3 layers)
+/jpetmc/detector/loadJPetBasicGeom
+
+# Loading scintillators without frame
+/jpetmc/detector/loadOnlyScintillators
+
+# setting primary generator to imaging part
+/jpetmc/source/imaging
+
+/run/initialize
+
+/run/beamOn 1000

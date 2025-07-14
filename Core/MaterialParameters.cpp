@@ -33,6 +33,10 @@ const G4double MaterialParameters::fSodiumGammaEnergy = 1.2770 * MeV;
 const G4double MaterialParameters::fSodiumGammaTau = 3.7 * ps;
 const G4double MaterialParameters::fSodiumChanceEC = 0.095;
 const G4double MaterialParameters::fSodiumChanceNoPrompt = 0.005;
+const G4double MaterialParameters::fScandiumGammaEnergy = 1.1570 * MeV;
+const G4double MaterialParameters::fScandiumGammaTau = 2.61 * ps;
+const G4double MaterialParameters::fScandiumChanceEC = 0.09427;
+const G4double MaterialParameters::fScandiumChanceNoPrompt = 0.00225;
 
 G4String MaterialParameters::fAnnihlationMode = "";
 G4double MaterialParameters::fpPs3Gfraction = 0;
@@ -48,7 +52,7 @@ const MaterialConstants MaterialParameters::fKapton = MaterialConstants(
   {142 * ns}, {0}, 0.125 * ns, 0, {0.374 * ns}, {100}
 );
 const MaterialConstants MaterialParameters::fPlexiglass = MaterialConstants(
-  {1.8 * ns}, {28}, 0.125 * ns, 1.0 / 3.0, {0.4 * ns}, {100}
+  {2.2 * ns}, {28}, 0.125 * ns, 1.0 / 3.0, {0.4 * ns}, {100}
 );
 // DOI 10.1063/1.475876 for temperature 293 K
 const MaterialConstants MaterialParameters::fScin = MaterialConstants(
@@ -77,6 +81,9 @@ const MaterialConstants MaterialParameters::fSiliconDioxide = MaterialConstants(
 
 const MaterialConstants MaterialParameters::fStainlessSteel = MaterialConstants(
   {}, {}, 0.125 * ns, 1.0/3.0, {0.18 * ns, 0.22 * ns}, {40, 60}
+);
+const MaterialConstants MaterialParameters::fWater = MaterialConstants(
+  {3 * ns}, {25}, 0.125 * ns, 1.0 / 3.0, {0.3 * ns}, {100}
 );
 
 MaterialParameters::MaterialParameters()
@@ -139,6 +146,7 @@ void MaterialParameters::SetMaterialByName(MaterialID materialID)
   else if (materialID == MaterialID::mPolyoxymethylene) SetMaterial(fPolyoxymethylene);
   else if (materialID == MaterialID::mSiliconDioxide) SetMaterial(fSiliconDioxide);
   else if (materialID == MaterialID::mStainlessSteel) SetMaterial(fStainlessSteel);
+  else if (materialID == MaterialID::mWater) SetMaterial(fWater);
 
   else SetMaterial(fTemp);
 }
