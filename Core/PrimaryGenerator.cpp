@@ -357,7 +357,7 @@ PrimaryGenerator::GetVerticesDistributionAlongStepVectorExponential(
 G4ThreeVector PrimaryGenerator::GenerateNemaVertex(G4int phantomElementID, G4ThreeVector boxCoveringElement)
 {
   G4VPhysicalVolume* nemaVolume = DetectorConstruction::GetInstance()->GetPhantElement(phantomElementID);
-  if (nemaVolume == nullptr)
+  if (!nemaVolume)
     return G4ThreeVector(0,0,0);
   
   G4String desiredName = nemaVolume->GetName();
@@ -367,12 +367,9 @@ G4ThreeVector PrimaryGenerator::GenerateNemaVertex(G4int phantomElementID, G4Thr
   theNavigator = G4TransportationManager::GetTransportationManager()->GetNavigatorForTracking();
   
   while (!lookForVtx) {
-    G4double rand1 = G4UniformRand();
-    G4double rand2 = G4UniformRand();
-    G4double rand3 = G4UniformRand();
-    myPoint.setX((2*rand1 - 1)*boxCoveringElement.getX());
-    myPoint.setY((2*rand2 - 1)*boxCoveringElement.getY());
-    myPoint.setZ((2*rand3 - 1)*boxCoveringElement.getZ());
+    myPoint.setX((2*G4UniformRand() - 1)*boxCoveringElement.getX());
+    myPoint.setY((2*G4UniformRand() - 1)*boxCoveringElement.getY());
+    myPoint.setZ((2*G4UniformRand() - 1)*boxCoveringElement.getZ());
     myPoint = myPoint + translation;
 
     if (theNavigator->LocateGlobalPointAndSetup(myPoint)->GetName() == desiredName)
@@ -704,24 +701,32 @@ void PrimaryGenerator::GenerateNema(G4Event* event, NemaGenerator* nemaGen)
   bool isPromptAllowed = nemaPoint.isPromptAllowed;
 
   if (isPromptAllowed) {
-/*   if (shape == PointShape::aCylinder) {
-      vtxPromptPosition = GenerateVertexUniformInCylinder(nemaPoint.sizeOfPointPrompt.getX(), nemaPoint.sizeOfPointPrompt.getY());
-      vtxPromptPosition = nemaGen->GetPointShapedInY(vtxPromptPosition, nemaPoint);
-      vtxPromptPosition = nemaGen->GetRotatedPoint(vtxPromptPosition, nemaPoint);
-      vtxPromptPosition = vtxPromptPosition + nemaPosition;
-    } else if (shape == PointShape::aBall) */
-   // vtxPromptPosition = GetRandomPointInFilledSphere(nemaPoint.sizeOfPointPrompt.getX());
-      
-//    vtxPromptPosition = vtxPromptPosition + vtxPosition; // moving prompt from the annihilation position
+    double randPrompt = G4UniformRand();
     if (nemaPoint.isotope == IsotopeType::i22Na) {
-      event->AddPrimaryVertex(GeneratePromptGammaVertex(
-        vtxPromptPosition, 0.0f, MaterialParameters::fSodiumGammaTau,
-        MaterialParameters::fSodiumGammaEnergy
-      ));
+      if (randPrompt * (1 - MaterialParameters::fSodiumChanceEC) >= MaterialParameters::fSodiumChanceNoPrompt) {
+        event->AddPrimaryVertex(GeneratePromptGammaVertex(
+          vtxPromptPosition, 0.0f, MaterialParameters::fSodiumGammaTau,
+          MaterialParameters::fSodiumGammaEnergy
+        ));
+      }
+    } else if (nemaPoint.isotope == IsotopeType::i44Sc) {
+      if (randPrompt * (1 - MaterialParameters::fScandiumChanceEC) >= MaterialParameters::fScandiumChanceNoPrompt) {
+        event->AddPrimaryVertex(GeneratePromptGammaVertex(
+          vtxPromptPosition, 0.0f, MaterialParameters::fScandiumGammaTau,
+          MaterialParameters::fScandiumGammaEnergy
+        ));
+      }
+    } else if (nemaPoint.isotope == IsotopeType::i124I) {
+      if (randPrompt * (1 - MaterialParameters::fIodineChanceEC) >= MaterialParameters::fIodineChanceNoPrompt) {
+        event->AddPrimaryVertex(GeneratePromptGammaVertex(
+          vtxPromptPosition, 0.0f, MaterialParameters::fIodineGammaTau,
+          MaterialParameters::fIodineGammaEnergy
+        ));
+      }
     } else {
       event->AddPrimaryVertex(GeneratePromptGammaVertex(
         vtxPromptPosition, 0.0f, MaterialParameters::fScandiumGammaTau,
-        MaterialParameters::fScandiumGammaEnergy
+        MaterialParameters::fSodiumGammaEnergy
       ));
     }
   }

@@ -32,7 +32,7 @@ enum PointShape {
 };
 
 enum IsotopeType {
-  i22Na, i44Sc  
+  i22Na, i44Sc, i124I
 };
 
 struct NemaPoint

@@ -101,6 +101,10 @@ public:
   static const G4double fScandiumGammaTau;
   static const G4double fScandiumChanceEC;
   static const G4double fScandiumChanceNoPrompt;
+  static const G4double fIodineGammaEnergy;
+  static const G4double fIodineGammaTau;
+  static const G4double fIodineChanceEC;
+  static const G4double fIodineChanceNoPrompt;
   static G4String fAnnihlationMode;
   static G4double fpPs3Gfraction;
 

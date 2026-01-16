@@ -411,17 +411,22 @@ void HistoManager::AddGenInfo(VtxInformation* info)
 void HistoManager::AddNewHit(DetectorHit* hit)
 {
   JPetGeantScinHits* geantHit = fEventPack->ConstructNextHit();
-  geantHit->Fill(
+/*  geantHit->Fill(
     fEventPack->GetEventNumber(), hit->GetScinID(), hit->GetTrackID(),
     hit->GetTrackPDG(), hit->GetNumInteractions(), hit->GetEdep()/keV,
     hit->GetTime()/ps
+  );*/
+  geantHit->Fill(
+    fEventPack->GetEventNumber(), hit->GetScinID(), 0,
+                 0, 0, hit->GetEdep()/keV,
+                 hit->GetTime()/ps
   );
 
   //! Converting G4Vector into root TVector3
   geantHit->SetHitPosition(
     hit->GetPosition().getX()/cm, hit->GetPosition().getY()/cm, hit->GetPosition().getZ()/cm
   );
-  geantHit->SetPolarizationIn(
+/*  geantHit->SetPolarizationIn(
     hit->GetPolarizationIn().getX(), hit->GetPolarizationIn().getY(),
     hit->GetPolarizationIn().getZ()
   );
@@ -436,7 +441,7 @@ void HistoManager::AddNewHit(DetectorHit* hit)
   geantHit->SetMomentumOut(
     hit->GetMomentumOut().getX()/keV, hit->GetMomentumOut().getY()/keV,
     hit->GetMomentumOut().getZ()/keV
-  );
+  );*/
   geantHit->SetGenGammaMultiplicity(hit->GetGenGammaMultiplicity());
   geantHit->SetGenGammaIndex(hit->GetGenGammaIndex());
   

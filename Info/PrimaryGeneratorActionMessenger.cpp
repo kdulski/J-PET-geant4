@@ -136,7 +136,7 @@ PrimaryGeneratorActionMessenger::PrimaryGeneratorActionMessenger(PrimaryGenerato
   fNemaSetPositionPositronReachDensDep->SetGuidance("Set effective positron radius dependent on the density for given nema point flag");
 
   fNemaSetPositionIsotopeType = new G4UIcmdWithAString("/jpetmc/source/nema/mixed/setIsotopeType", this);
-  fNemaSetPositionIsotopeType->SetGuidance("Setting the type of isotope simulated for a given point (sodium or scandium)");
+  fNemaSetPositionIsotopeType->SetGuidance("Setting the type of isotope simulated for a given point (sodium, scandium or iodine)");
   
   fNemaSetPhantomElementID = new G4UIcmdWithAString("/jpetmc/source/nema/mixed/setPhantomElementID", this);
   fNemaSetPhantomElementID->SetGuidance("Set phantom element ID to simulate source inside it");

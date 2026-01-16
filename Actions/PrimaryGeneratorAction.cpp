@@ -377,8 +377,12 @@ void PrimaryGeneratorAction::SetNemaPointIsotopeType(G4int nemaPoint, G4String t
 
   if (type == "22Na" || type == "Na" || type == "sodium" || type == "Sodium" || type == "sodium-22" || type == "Sodium-22")
     fNemaGenerator.SetIsotope(nemaPoint, IsotopeType::i22Na);
-  else
+  else if (type == "44Sc" || type == "Sc" || type == "scandium" || type == "Scandium" || type == "scandium-44" || type == "Scandium-44")
     fNemaGenerator.SetIsotope(nemaPoint, IsotopeType::i44Sc);
+  else if (type == "124I" || type == "I" || type == "iodine" || type == "Iodine" || type == "iodine-124" || type == "Iodine-124")
+    fNemaGenerator.SetIsotope(nemaPoint, IsotopeType::i124I);
+  else
+    fNemaGenerator.SetIsotope(nemaPoint, IsotopeType::i22Na); // Need to add some neutral isotope or blank isotope not emitting anything
 }
 
 void PrimaryGeneratorAction::SetPhantomElementIDForNemaPoint(G4int nemaPoint, G4int phantomElement)

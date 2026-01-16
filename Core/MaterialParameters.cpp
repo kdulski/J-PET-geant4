@@ -37,6 +37,10 @@ const G4double MaterialParameters::fScandiumGammaEnergy = 1.1570 * MeV;
 const G4double MaterialParameters::fScandiumGammaTau = 2.61 * ps;
 const G4double MaterialParameters::fScandiumChanceEC = 0.09427;
 const G4double MaterialParameters::fScandiumChanceNoPrompt = 0.00225;
+const G4double MaterialParameters::fIodineGammaEnergy = 0.6030 * MeV;
+const G4double MaterialParameters::fIodineGammaTau = 1.6 * ps;    // approximate prompt level lifetime
+const G4double MaterialParameters::fIodineChanceEC = 0.77;        // ~77% EC
+const G4double MaterialParameters::fIodineChanceNoPrompt = 0.11;      // β+ without 603 keV (includes 723 keV treated as “no prompt”)
 
 G4String MaterialParameters::fAnnihlationMode = "";
 G4double MaterialParameters::fpPs3Gfraction = 0;
